@@ -71,6 +71,36 @@
             opacity: 0.8;
         }
 
+        /* ========== FORMULARIO DE BÚSQUEDA ========== */
+        .search-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #searchInput {
+            padding: 0.5rem;
+            width: 80%;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+        }
+
+        .search-button {
+            padding: 0.5rem 1rem;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .search-button:hover {
+            background-color: #4a5ba3;
+        }
+
         /* ========== SECCIÓN HERO ========== */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -324,7 +354,6 @@
     <header>
         <nav>
             <div class="logo">
-                <!-- 🔴 AQUÍ SE CARGA TU LOGO -->
                 <img src="images/logo.jpg" alt="Rainloud Logo">
                 RAINLOUD
             </div>
@@ -335,6 +364,11 @@
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
+        <!-- FORMULARIO DE BÚSQUEDA -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar productos..." onkeyup="searchProducts()">
+            <button class="search-button" onclick="searchProducts()">Buscar</button>
+        </div>
     </header>
 
     <!-- ========== HERO SECTION ========== -->
@@ -490,6 +524,22 @@
                 }
             });
         });
+
+        // Función de Búsqueda
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                const productName = card.querySelector('h4').textContent.toLowerCase();
+                const productDescription = card.querySelector('p').textContent.toLowerCase();
+
+                if (productName.includes(searchInput) || productDescription.includes(searchInput)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
