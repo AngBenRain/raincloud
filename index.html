@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainloud - Pods y Tecnología</title>
+    <title>Rainloud - Pods y Termos</title>
     <style>
         * {
             margin: 0;
@@ -253,6 +253,8 @@
             cursor: pointer;
             font-weight: bold;
             transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .buy-button:hover {
@@ -297,7 +299,7 @@
             .hero h1 {
                 font-size: 2rem;
             }
-            
+
             .nav-links {
                 gap: 1rem;
                 font-size: 0.9rem;
@@ -338,7 +340,7 @@
     <!-- ========== HERO SECTION ========== -->
     <section class="hero" id="inicio">
         <h1>Bienvenido a Rainloud</h1>
-        <p>Tu tienda de confianza para pods y tecnología</p>
+        <p>Tu tienda de confianza para pods y termos de calidad</p>
         <button class="cta-button" onclick="document.getElementById('productos').scrollIntoView({behavior: 'smooth'})">
             Ver Productos
         </button>
@@ -359,25 +361,25 @@
                 </div>
             </div>
 
-            <!-- 🔴 CATEGORÍA 2: COMPUTADORAS -->
+            <!-- 🔴 CATEGORÍA 2: TERMOS -->
             <div class="category-card">
                 <div class="category-image">
-                    <img src="images/computadoras-category.jpg" alt="Computadoras">
+                    <img src="images/computadoras-category.jpg" alt="Termos Stanley">
                 </div>
                 <div class="category-content">
-                    <h3>Computadoras</h3>
-                    <p>Laptops, PCs de escritorio y componentes de alta calidad</p>
+                    <h3>Termos Stanley</h3>
+                    <p>Termos de alta calidad que mantienen la temperatura por horas</p>
                 </div>
             </div>
 
             <!-- 🔴 CATEGORÍA 3: ACCESORIOS -->
             <div class="category-card">
                 <div class="category-image">
-                    <img src="images/accesorios-category.jpg" alt="Accesorios Tech">
+                    <img src="images/accesorios-category.jpg" alt="Accesorios">
                 </div>
                 <div class="category-content">
-                    <h3>Accesorios Tech</h3>
-                    <p>Teclados, ratones, audífonos y más periféricos</p>
+                    <h3>Accesorios</h3>
+                    <p>Complementos y accesorios para tus productos favoritos</p>
                 </div>
             </div>
         </div>
@@ -387,7 +389,6 @@
     <section class="products" id="productos">
         <h2 class="section-title">Productos Destacados</h2>
         <div class="product-grid">
-            
             <!-- 🔴 PRODUCTO 1: POD DESECHABLE -->
             <div class="product-card">
                 <div class="product-image">
@@ -396,7 +397,7 @@
                 <h4>Pod Desechable</h4>
                 <p>Sabores variados, 5000 puffs</p>
                 <div class="price">112.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <button class="buy-button" data-pod="true">Comprar Ahora</button>
             </div>
 
             <!-- 🔴 PRODUCTO 2: POD RECARGABLE -->
@@ -407,51 +408,51 @@
                 <h4>Pod Recargable</h4>
                 <p>Sistema de cartucho reemplazable</p>
                 <div class="price">210.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <button class="buy-button" data-pod="true">Comprar Ahora</button>
             </div>
 
-            <!-- 🔴 PRODUCTO 3: LAPTOP -->
+            <!-- 🔴 PRODUCTO 3: TERMO STANLEY 1.4L -->
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/laptop.jpg" alt="Laptop Gaming">
+                    <img src="images/laptop.jpg" alt="Termo Stanley 1.4L">
                 </div>
-                <h4>Laptop Gaming</h4>
-                <p>Intel i7, 16GB RAM, RTX 4060</p>
-                <div class="price">9.123.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <h4>Termo Stanley 1.4L</h4>
+                <p>Mantiene frío 48hrs y calor 40hrs</p>
+                <div class="price">420.000gs</div>
+                <a href="https://wa.link/r9olgy" target="_blank" class="buy-button">Comprar Ahora</a>
             </div>
 
-            <!-- 🔴 PRODUCTO 4: TECLADO -->
+            <!-- 🔴 PRODUCTO 4: TERMO STANLEY 750ML -->
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/teclado.jpg" alt="Teclado Mecánico">
+                    <img src="images/teclado.jpg" alt="Termo Stanley 750ml">
                 </div>
-                <h4>Teclado Mecánico</h4>
-                <p>RGB, switches mecánicos</p>
-                <div class="price">630.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <h4>Termo Stanley 750ml</h4>
+                <p>Tamaño ideal para el día a día</p>
+                <div class="price">320.000gs</div>
+                <a href="https://wa.link/r9olgy" target="_blank" class="buy-button">Comprar Ahora</a>
             </div>
 
-            <!-- 🔴 PRODUCTO 5: MOUSE -->
+            <!-- 🔴 PRODUCTO 5: TERMITO STANLEY 473ML -->
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/mouse.jpg" alt="Mouse Gaming">
+                    <img src="images/mouse.jpg" alt="Termito Stanley 473ml">
                 </div>
-                <h4>Mouse Gaming</h4>
-                <p>12000 DPI, programable</p>
-                <div class="price">350.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <h4>Termito Stanley 473ml</h4>
+                <p>Compacto y portátil, perfecto para llevar</p>
+                <div class="price">280.000gs</div>
+                <a href="https://wa.link/r9olgy" target="_blank" class="buy-button">Comprar Ahora</a>
             </div>
 
-            <!-- 🔴 PRODUCTO 6: AUDÍFONOS -->
+            <!-- 🔴 PRODUCTO 6: TERMO STANLEY ADVENTURE -->
             <div class="product-card">
                 <div class="product-image">
-                    <img src="images/audifonos.jpg" alt="Audífonos Inalámbricos">
+                    <img src="images/audifonos.jpg" alt="Termo Stanley Adventure">
                 </div>
-                <h4>Audífonos Inalámbricos</h4>
-                <p>Bluetooth 5.0, 30hrs batería</p>
-                <div class="price">560.000gs</div>
-                <button class="buy-button">Comprar Ahora</button>
+                <h4>Termo Stanley Adventure</h4>
+                <p>Ideal para aventuras al aire libre</p>
+                <div class="price">380.000gs</div>
+                <a href="https://wa.link/r9olgy" target="_blank" class="buy-button">Comprar Ahora</a>
             </div>
         </div>
     </section>
@@ -468,8 +469,8 @@
 
     <!-- ========== JAVASCRIPT ========== -->
     <script>
-        // Funcionalidad de botones de compra
-        document.querySelectorAll('.buy-button').forEach(button => {
+        // Funcionalidad de botones de compra para PODS
+        document.querySelectorAll('.buy-button[data-pod="true"]').forEach(button => {
             button.addEventListener('click', function() {
                 const productName = this.parentElement.querySelector('h4').textContent;
                 alert('¡' + productName + ' agregado al carrito! Funcionalidad de compra en desarrollo.');
