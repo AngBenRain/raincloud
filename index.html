@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rainloud - Pods y Termos</title>
     <style>
+        /* Aquí van todos tus estilos */
         * {
             margin: 0;
             padding: 0;
@@ -38,7 +39,6 @@
             padding: 0 2rem;
         }
 
-        /* ========== LOGO CON IMAGEN ========== */
         .logo {
             display: flex;
             align-items: center;
@@ -71,7 +71,6 @@
             opacity: 0.8;
         }
 
-        /* ========== FORMULARIO DE BÚSQUEDA ========== */
         .search-container {
             display: flex;
             align-items: center;
@@ -100,58 +99,6 @@
 
         .search-button:hover {
             background-color: #4a5ba3;
-        }
-
-        /* ========== ESTILOS RESPONSIVOS ========== */
-        @media (max-width: 768px) {
-            /* Ajustar la apariencia del buscador en pantallas pequeñas */
-            .search-container {
-                flex-direction: column;  /* Hacer que los elementos estén apilados en móviles */
-                align-items: stretch;    /* Alinear los elementos al 100% de ancho */
-                max-width: 100%;
-                margin-top: 1rem;
-            }
-
-            #searchInput {
-                width: 100%;  /* El input de búsqueda toma todo el ancho disponible */
-                margin-bottom: 10px;  /* Añadir un pequeño margen entre el input y el botón */
-            }
-
-            .search-button {
-                width: 100%;  /* Hacer el botón del buscador también de 100% */
-            }
-
-            /* Ajustes para el header */
-            header {
-                padding: 1rem;
-            }
-
-            /* Hacer el hero más compacto en pantallas pequeñas */
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            /* Ajustes para la navegación en móviles */
-            .nav-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .nav-links a {
-                font-size: 1rem;
-            }
-        }
-
-        /* En pantallas grandes, el diseño se mantiene igual */
-        @media (min-width: 769px) {
-            .search-container {
-                max-width: 400px;
-                display: flex;
-            }
         }
 
         /* ========== SECCIÓN HERO ========== */
@@ -192,76 +139,6 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
-        /* ========== SECCIÓN CATEGORÍAS ========== */
-        .categories {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
-
-        /* ========== IMÁGENES DE CATEGORÍAS ========== */
-        .category-image {
-            height: 250px;
-            width: 100%;
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .category-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .category-card:hover .category-image img {
-            transform: scale(1.1);
-        }
-
-        .category-content {
-            padding: 1.5rem;
-        }
-
-        .category-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #667eea;
-        }
-
-        .category-content p {
-            color: #666;
-        }
-
         /* ========== SECCIÓN PRODUCTOS ========== */
         .products {
             background: #f8f9fa;
@@ -289,7 +166,6 @@
             transform: scale(1.05);
         }
 
-        /* ========== IMÁGENES DE PRODUCTOS ========== */
         .product-image {
             height: 180px;
             width: 100%;
@@ -344,27 +220,6 @@
             transform: scale(1.05);
         }
 
-        /* ========== FOOTER ========== */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .contact-info {
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-info div {
-            font-size: 1rem;
-        }
-
         /* ========== ANIMACIONES ========== */
         @keyframes fadeInUp {
             from {
@@ -399,30 +254,37 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 100%;
+                margin-top: 1rem;
+            }
+
+            #searchInput {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-<!-- HEADER CON LOGO Y BUSCADOR -->
-<header>
-    <nav>
-        <div class="logo">
-            <img src="images/logo.jpg" alt="Rainloud Logo">
-            RAINLOUD
-        </div>
-        <ul class="nav-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#categorias">Categorías</a></li>
-            <li><a href="#productos">Productos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
-    <!-- FORMULARIO DE BÚSQUEDA -->
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar productos..." onkeyup="searchProducts()">
-        <button class="search-button" onclick="searchProducts()">Buscar</button>
-    </div>
-</header>
+    <!-- Cargar el menú desde el archivo externo -->
+    <div id="menu-container"></div>
+
+    <script>
+        // Cargar el archivo menu.html en el div con id "menu-container"
+        fetch('menu.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('menu-container').innerHTML = data;
+            });
+    </script>
 
     <!-- ========== HERO SECTION ========== -->
     <section class="hero" id="inicio">
@@ -431,45 +293,6 @@
         <button class="cta-button" onclick="document.getElementById('productos').scrollIntoView({behavior: 'smooth'})">
             Ver Productos
         </button>
-    </section>
-
-    <!-- ========== CATEGORÍAS CON IMÁGENES ========== -->
-    <section class="categories" id="categorias">
-        <h2 class="section-title">Nuestras Categorías</h2>
-        <div class="category-grid">
-            <!-- 🔴 CATEGORÍA 1: PODS -->
-            <div class="category-card">
-                <div class="category-image">
-                    <img src="images/pods-category.jpg" alt="Pods y Vapeadores">
-                </div>
-                <div class="category-content">
-                    <h3>Pods y Vapeadores</h3>
-                    <p>Amplia selección de pods desechables y recargables de las mejores marcas</p>
-                </div>
-            </div>
-
-            <!-- 🔴 CATEGORÍA 2: TERMOS -->
-            <div class="category-card">
-                <div class="category-image">
-                    <img src="images/termo-category.jpg" alt="Termos Stanley">
-                </div>
-                <div class="category-content">
-                    <h3>Termos Stanley</h3>
-                    <p>Termos de alta calidad que mantienen la temperatura por horas</p>
-                </div>
-            </div>
-
-            <!-- 🔴 CATEGORÍA 3: ACCESORIOS -->
-            <div class="category-card">
-                <div class="category-image">
-                    <img src="images/accesorios-category.jpg" alt="Accesorios">
-                </div>
-                <div class="category-content">
-                    <h3>Accesorios</h3>
-                    <p>Complementos y accesorios para tus productos favoritos</p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- ========== PRODUCTOS CON IMÁGENES ========== -->
@@ -544,17 +367,6 @@
         </div>
     </section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer id="contacto">
-        <div class="contact-info">
-            <div>📧 cuentafire150@gmail.com</div>
-            <div>📱 +595 (994) 589-575</div>
-            <div>📍 Asunción, Paraguay</div>
-        </div>
-        <p>&copy; 2024 Rainloud. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- ========== JAVASCRIPT ========== -->
     <script>
         // Funcionalidad de botones de compra para PODS
         document.querySelectorAll('.buy-button[data-pod="true"]').forEach(button => {
