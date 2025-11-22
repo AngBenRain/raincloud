@@ -36,27 +36,43 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 1.8rem;
+            gap: 0.5rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .logo img {
-            height: 50px;
+            height: 40px;
             width: auto;
             border-radius: 10px;
         }
 
+        /* ========== MENÚ HAMBURGUESA ========== */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
 
@@ -65,6 +81,7 @@
             text-decoration: none;
             transition: opacity 0.3s;
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
@@ -74,13 +91,13 @@
         /* ========== CONTENEDOR PRINCIPAL ========== */
         .container {
             max-width: 1200px;
-            margin: 120px auto 2rem;
-            padding: 0 2rem;
+            margin: 100px auto 2rem;
+            padding: 0 1rem;
         }
 
         .page-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 2rem;
             color: #333;
         }
@@ -96,17 +113,16 @@
         .cart-items {
             background: white;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
         }
 
         .cart-item {
             display: grid;
-            grid-template-columns: 100px 1fr auto;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            grid-template-columns: 80px 1fr;
+            gap: 1rem;
+            padding: 1rem;
             border-bottom: 1px solid #e0e0e0;
-            align-items: center;
         }
 
         .cart-item:last-child {
@@ -114,8 +130,8 @@
         }
 
         .item-image {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 10px;
             overflow: hidden;
         }
@@ -126,26 +142,33 @@
             object-fit: cover;
         }
 
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
         .item-details h3 {
             color: #333;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .item-details p {
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .item-price {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #667eea;
             font-weight: bold;
+            margin-top: 0.3rem;
         }
 
         .quantity-controls {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 0.5rem;
         }
 
@@ -153,14 +176,15 @@
             background: #667eea;
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .quantity-btn:hover {
@@ -169,7 +193,7 @@
 
         .quantity {
             font-weight: bold;
-            min-width: 30px;
+            min-width: 25px;
             text-align: center;
         }
 
@@ -177,10 +201,12 @@
             background: #ff4444;
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
+            font-size: 0.85rem;
+            align-self: flex-start;
         }
 
         .remove-btn:hover {
@@ -191,7 +217,7 @@
         .cart-summary {
             background: white;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             height: fit-content;
             position: sticky;
@@ -201,18 +227,20 @@
         .cart-summary h2 {
             margin-bottom: 1.5rem;
             color: #333;
+            font-size: 1.5rem;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 0.8rem 0;
+            padding: 0.7rem 0;
             border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95rem;
         }
 
         .summary-row:last-child {
             border-bottom: none;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #667eea;
             padding-top: 1rem;
@@ -225,7 +253,7 @@
             padding: 1rem;
             border: none;
             border-radius: 25px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             margin-top: 1.5rem;
@@ -238,7 +266,7 @@
 
         .empty-cart {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 3rem 1.5rem;
             background: white;
             border-radius: 15px;
         }
@@ -246,49 +274,205 @@
         .empty-cart h2 {
             color: #666;
             margin-bottom: 1rem;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+        }
+
+        .empty-cart p {
+            color: #999;
+            margin-bottom: 1.5rem;
         }
 
         .continue-shopping {
             display: inline-block;
             margin-top: 1rem;
-            padding: 1rem 2rem;
+            padding: 0.9rem 2rem;
             background: #667eea;
             color: white;
             text-decoration: none;
             border-radius: 25px;
             font-weight: bold;
+            font-size: 0.95rem;
         }
 
         .continue-shopping:hover {
             background: #764ba2;
         }
 
-        /* ========== RESPONSIVE ========== */
+        /* ========== RESPONSIVE MÓVIL ========== */
         @media (max-width: 768px) {
-            .cart-container {
-                grid-template-columns: 1fr;
+            /* Menú hamburguesa */
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
             }
 
-            .cart-item {
-                grid-template-columns: 80px 1fr;
-                gap: 1rem;
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
             }
 
-            .item-actions {
-                grid-column: 1 / -1;
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
             }
 
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 0;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+
+            /* Logo */
             .logo {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
             }
 
             .logo img {
                 height: 35px;
             }
 
-            .nav-links {
-                gap: 1rem;
+            /* Container */
+            .container {
+                margin-top: 90px;
+                padding: 0 0.8rem;
+            }
+
+            /* Layout de carrito en móvil */
+            .cart-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cart-items {
+                padding: 1rem;
+            }
+
+            .cart-item {
+                grid-template-columns: 70px 1fr;
+                gap: 0.8rem;
+                padding: 0.8rem;
+            }
+
+            .item-image {
+                width: 70px;
+                height: 70px;
+            }
+
+            .item-details h3 {
+                font-size: 1rem;
+            }
+
+            .item-details p {
+                font-size: 0.8rem;
+            }
+
+            .item-price {
+                font-size: 1.1rem;
+            }
+
+            .quantity-controls {
+                gap: 0.6rem;
+            }
+
+            .quantity-btn {
+                width: 26px;
+                height: 26px;
+                font-size: 1rem;
+            }
+
+            .remove-btn {
+                padding: 0.35rem 0.7rem;
+                font-size: 0.8rem;
+            }
+
+            /* Resumen en móvil */
+            .cart-summary {
+                position: static;
+                padding: 1.2rem;
+            }
+
+            .cart-summary h2 {
+                font-size: 1.3rem;
+            }
+
+            .summary-row {
                 font-size: 0.9rem;
+            }
+
+            .summary-row:last-child {
+                font-size: 1.1rem;
+            }
+
+            .checkout-btn {
+                font-size: 0.95rem;
+                padding: 0.9rem;
+            }
+
+            /* Carrito vacío */
+            .empty-cart {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* ========== RESPONSIVE TABLETS ========== */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .cart-container {
+                grid-template-columns: 1fr 300px;
+                gap: 1.5rem;
+            }
+
+            .cart-summary {
+                padding: 1.3rem;
+            }
+        }
+
+        /* ========== RESPONSIVE PANTALLAS PEQUEÑAS ========== */
+        @media (max-width: 480px) {
+            .cart-item {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .item-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .item-details h3 {
+                font-size: 0.95rem;
+            }
+
+            .item-price {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
             }
         }
     </style>
@@ -301,7 +485,15 @@
                 <img src="images/logo.jpg" alt="Rainloud Logo">
                 RAINLOUD
             </div>
-            <ul class="nav-links">
+            
+            <!-- Botón hamburguesa -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
                 <li><a href="menu.html">Inicio</a></li>
                 <li><a href="menu.html#categorias">Categorías</a></li>
                 <li><a href="menu.html#productos">Productos</a></li>
@@ -321,6 +513,25 @@
 
     <!-- ========== JAVASCRIPT ========== -->
     <script>
+        // ========== MENÚ HAMBURGUESA ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ========== SISTEMA DE CARRITO ==========
+
         // Obtener carrito del localStorage
         function getCart() {
             const cart = localStorage.getItem('rainloudCart');
@@ -374,15 +585,15 @@
                                 <div class="item-details">
                                     <h3>${item.name}</h3>
                                     <p>${item.description}</p>
+                                    <div class="item-price">
+                                        ${formatPrice(item.price * item.quantity)}
+                                    </div>
                                     <div class="quantity-controls">
                                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
                                         <span class="quantity">${item.quantity}</span>
                                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                                     </div>
                                     <button class="remove-btn" onclick="removeItem(${item.id})">Eliminar</button>
-                                </div>
-                                <div class="item-price">
-                                    ${formatPrice(item.price * item.quantity)}
                                 </div>
                             </div>
                         `).join('')}
@@ -436,7 +647,7 @@
         function checkout() {
             const cart = getCart();
             const subtotal = calculateSubtotal();
-            const envio = 25.000;
+            const envio = 50000;
             const total = subtotal + envio;
             
             const message = `🛒 *PEDIDO RAINLOUD*

@@ -124,8 +124,11 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 2000;
-            animation: slideIn 0.3s, slideOut 0.3s 2.7s;
-            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .notification.hide {
+            animation: slideOut 0.5s ease forwards;
         }
 
         @keyframes slideIn {
@@ -714,10 +717,18 @@
             // Agregar al body
             document.body.appendChild(notification);
             
-            // Eliminar después de 3 segundos
+            // Duración de la notificación (en milisegundos)
+            const duracion = 5000; // 5 segundos - puedes cambiar este número
+            
+            // Iniciar animación de salida antes de eliminar
+            setTimeout(() => {
+                notification.classList.add('hide');
+            }, duracion);
+            
+            // Eliminar después de que termine la animación de salida
             setTimeout(() => {
                 notification.remove();
-            }, 3000);
+            }, duracion + 500); // +500ms para que termine la animación
         }
 
         // Actualizar contador al cargar la página
