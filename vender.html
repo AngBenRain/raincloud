@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vender en Rainloud - Panel de Vendedores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            border-radius: 10px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* ========== CONTAINER PRINCIPAL ========== */
+        .container {
+            max-width: 900px;
+            margin: 100px auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* ========== FORMULARIO ========== */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h2 {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 0.3rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .image-upload {
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .image-upload:hover {
+            background: #f0f4ff;
+        }
+
+        .image-upload input[type="file"] {
+            display: none;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #e0e0e0;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== MIS PRODUCTOS ========== */
+        .my-products {
+            margin-top: 3rem;
+        }
+
+        .my-products h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-item .price {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ff4444;
+            color: white;
+        }
+
+        /* ========== NOTIFICACIÓN ========== */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 2000;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .notification.error {
+            background: #ff4444;
+        }
+
+        .notification.hide {
+            animation: slideOut 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                flex-direction: column;
+                padding: 2rem 0;
+                gap: 0;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                padding: 1rem 2rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.jpg" alt="Rainloud Logo">
+                RAINLOUD
+            </div>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="menu.html">Inicio</a></li>
+                <li><a href="menu.html#productos">Comprar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="menu-compra.html">🛒 Carrito</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ========== CONTAINER PRINCIPAL ========== -->
+    <div class="container">
+        <div class="page-header">
+            <h1>🏪 Vende tus Productos</h1>
+            <p>Publica tus artículos y comienza a vender en el marketplace</p>
+        </div>
+
+        <!-- ========== FORMULARIO ========== -->
+        <div class="form-container">
+            <form id="productForm">
+                <div class="form-section">
+                    <h2>📦 Información del Producto</h2>
+                    
+                    <div class="form-group">
+                        <label for="productName">Nombre del Producto *</label>
+                        <input type="text" id="productName" required placeholder="Ej: Termo Stanley 1.4L">
+                        <small>Usa un nombre claro y descriptivo</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Categoría *</label>
+                        <select id="category" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="pods">Pods y Vapeadores</option>
+                            <option value="termos">Termos Stanley</option>
+                            <option value="accesorios">Accesorios</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descripción *</label>
+                        <textarea id="description" required placeholder="Describe tu producto, características, condición, etc."></textarea>
+                        <small>Incluye detalles importantes para el comprador</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Precio (Gs) *</label>
+                        <input type="number" id="price" required placeholder="0" min="0" step="1000">
+                        <small>Precio en Guaraníes</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>📸 Imágenes del Producto</h2>
+                    
+                    <div class="form-group">
+                        <label class="image-upload" for="productImages">
+                            <div>
+                                <p style="font-size: 2rem; margin-bottom: 0.5rem;">📷</p>
+                                <p><strong>Haz clic para subir imágenes</strong></p>
+                                <small>Máximo 5 imágenes (JPG, PNG)</small>
+                            </div>
+                            <input type="file" id="productImages" accept="image/*" multiple>
+                        </label>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>📞 Información de Contacto</h2>
+                    
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp *</label>
+                        <input type="tel" id="whatsapp" required placeholder="+595 994 589 575">
+                        <small>Los compradores se contactarán por WhatsApp</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Ubicación</label>
+                        <input type="text" id="location" placeholder="Ej: Asunción, Paraguay">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    📤 Publicar Producto
+                </button>
+            </form>
+        </div>
+
+        <!-- ========== MIS PRODUCTOS ========== -->
+        <div class="my-products">
+            <h2>Mis Productos Publicados</h2>
+            <div id="myProductsGrid" class="products-grid">
+                <!-- Los productos se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ========== MENÚ HAMBURGUESA ==========
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ========== SISTEMA DE PRODUCTOS ==========
+        
+        let selectedImages = [];
+        let editingProductId = null;
+
+        // Obtener productos
+        function getProducts() {
+            const products = localStorage.getItem('rainloudProducts');
+            return products ? JSON.parse(products) : [];
+        }
+
+        // Guardar productos
+        function saveProducts(products) {
+            localStorage.setItem('rainloudProducts', JSON.stringify(products));
+        }
+
+        // Manejar carga de imágenes
+        document.getElementById('productImages').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            
+            if (selectedImages.length + files.length > 5) {
+                showNotification('Máximo 5 imágenes permitidas', 'error');
+                return;
+            }
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    selectedImages.push(event.target.result);
+                    renderImagePreview();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Renderizar vista previa de imágenes
+        function renderImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = selectedImages.map((img, index) => `
+                <div class="preview-item">
+                    <img src="${img}" alt="Preview ${index + 1}">
+                    <button type="button" class="remove-image" onclick="removeImage(${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        // Eliminar imagen
+        function removeImage(index) {
+            selectedImages.splice(index, 1);
+            renderImagePreview();
+        }
+
+        // Enviar formulario
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (selectedImages.length === 0) {
+                showNotification('Por favor agrega al menos una imagen', 'error');
+                return;
+            }
+
+            const product = {
+                id: editingProductId || Date.now(),
+                name: document.getElementById('productName').value,
+                category: document.getElementById('category').value,
+                description: document.getElementById('description').value,
+                price: parseInt(document.getElementById('price').value),
+                images: selectedImages,
+                whatsapp: document.getElementById('whatsapp').value,
+                location: document.getElementById('location').value,
+                date: editingProductId ? new Date().toISOString() : new Date().toISOString()
+            };
+
+            let products = getProducts();
+            
+            if (editingProductId) {
+                // Actualizar producto existente
+                const index = products.findIndex(p => p.id === editingProductId);
+                if (index !== -1) {
+                    products[index] = product;
+                    showNotification('¡Producto actualizado exitosamente!');
+                }
+                editingProductId = null;
+            } else {
+                // Agregar nuevo producto
+                products.push(product);
+                showNotification('¡Producto publicado exitosamente!');
+            }
+            
+            saveProducts(products);
+            
+            // Limpiar formulario
+            this.reset();
+            selectedImages = [];
+            renderImagePreview();
+            renderMyProducts();
+            
+            // Cambiar texto del botón de vuelta
+            document.querySelector('.submit-button').textContent = '📤 Publicar Producto';
+        });
+
+        // Renderizar mis productos
+        function renderMyProducts() {
+            const products = getProducts();
+            const grid = document.getElementById('myProductsGrid');
+
+            if (products.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: #666;">No has publicado productos aún</p>';
+                return;
+            }
+
+            grid.innerHTML = products.map(product => `
+                <div class="product-item">
+                    <img src="${product.images[0]}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p style="font-size: 0.9rem; color: #666;">${product.description.substring(0, 60)}...</p>
+                    <div class="price">${product.price.toLocaleString('es-PY')}gs</div>
+                    <div class="product-actions">
+                        <button class="btn-edit" onclick="editProduct(${product.id})">Editar</button>
+                        <button class="btn-delete" onclick="deleteProduct(${product.id})">Eliminar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Eliminar producto
+        function deleteProduct(id) {
+            if (confirm('¿Estás seguro de eliminar este producto?')) {
+                let products = getProducts();
+                products = products.filter(p => p.id !== id);
+                saveProducts(products);
+                renderMyProducts();
+                showNotification('Producto eliminado');
+            }
+        }
+
+        // Editar producto
+        function editProduct(id) {
+            const products = getProducts();
+            const product = products.find(p => p.id === id);
+            
+            if (!product) {
+                showNotification('Producto no encontrado', 'error');
+                return;
+            }
+
+            // Llenar el formulario con los datos del producto
+            document.getElementById('productName').value = product.name;
+            document.getElementById('category').value = product.category;
+            document.getElementById('description').value = product.description;
+            document.getElementById('price').value = product.price;
+            document.getElementById('whatsapp').value = product.whatsapp;
+            document.getElementById('location').value = product.location;
+            
+            // Cargar imágenes
+            selectedImages = [...product.images];
+            renderImagePreview();
+            
+            // Guardar ID del producto que se está editando
+            editingProductId = id;
+            
+            // Cambiar texto del botón
+            document.querySelector('.submit-button').textContent = '✏️ Actualizar Producto';
+            
+            // Scroll al formulario
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            showNotification('Editando producto. Modifica los campos y guarda los cambios.');
+        }
+
+        // Mostrar notificación
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('hide');
+            }, 3000);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3500);
+        }
+
+        // Cargar productos al inicio
+        renderMyProducts();
+    </script>
+</body>
+</html>

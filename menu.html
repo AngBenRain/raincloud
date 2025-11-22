@@ -113,6 +113,10 @@
             font-weight: bold;
         }
 
+        .cart-count.hidden {
+            display: none;
+        }
+
         /* ========== NOTIFICACIÓN ========== */
         .notification {
             position: fixed;
@@ -492,10 +496,10 @@
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#categorias">Categorías</a></li>
                 <li><a href="#productos">Productos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="vender.html">Vender</a></li>
                 <li class="cart-link">
                     <a href="menu-compra.html">🛒 Carrito</a>
-                    <span class="cart-count" id="cartCount">0</span>
+                    <span class="cart-count hidden" id="cartCount">0</span>
                 </li>
             </ul>
         </nav>
@@ -504,7 +508,7 @@
     <!-- ========== HERO SECTION ========== -->
     <section class="hero" id="inicio">
         <h1>Bienvenido a Rainloud</h1>
-        <p>Tu tienda de confianza para pods y termos de calidad</p>
+        <p>Tu marketplace de confianza - Compra y vende lo que quieras</p>
         <button class="cta-button" onclick="document.getElementById('productos').scrollIntoView({behavior: 'smooth'})">
             Ver Productos
         </button>
@@ -521,7 +525,7 @@
                 </div>
                 <div class="category-content">
                     <h3>Pods y Vapeadores</h3>
-                    <p>Amplia selección de pods desechables y recargables de las mejores marcas</p>
+                    <p>Amplia selección de pods y vapeadores</p>
                 </div>
             </div>
 
@@ -532,7 +536,7 @@
                 </div>
                 <div class="category-content">
                     <h3>Termos Stanley</h3>
-                    <p>Termos de alta calidad que mantienen la temperatura por horas</p>
+                    <p>Termos de alta calidad y accesorios</p>
                 </div>
             </div>
 
@@ -542,8 +546,8 @@
                     <img src="images/accesorios-category.jpg" alt="Accesorios">
                 </div>
                 <div class="category-content">
-                    <h3>Accesorios</h3>
-                    <p>Complementos y accesorios para tus productos favoritos</p>
+                    <h3>Más Productos</h3>
+                    <p>Descubre otros productos de nuestra comunidad</p>
                 </div>
             </div>
         </div>
@@ -552,84 +556,8 @@
     <!-- ========== PRODUCTOS CON IMÁGENES ========== -->
     <section class="products" id="productos">
         <h2 class="section-title">Productos Destacados</h2>
-        <div class="product-grid">
-            <!-- 🔴 PRODUCTO 1: POD DESECHABLE -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/pod-desechable.jpg" alt="Pod Desechable">
-                </div>
-                <h4>Pod Desechable</h4>
-                <p>Sabores variados, 5000 puffs</p>
-                <div class="price">112.000gs</div>
-                <button class="buy-button" onclick="addToCart(1, 'Pod Desechable', 'Sabores variados, 5000 puffs', 112000, 'images/pod-desechable.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
-
-            <!-- 🔴 PRODUCTO 2: POD RECARGABLE -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/pod-recargable.jpg" alt="Pod Recargable">
-                </div>
-                <h4>Pod Recargable</h4>
-                <p>Sistema de cartucho reemplazable</p>
-                <div class="price">210.000gs</div>
-                <button class="buy-button" onclick="addToCart(2, 'Pod Recargable', 'Sistema de cartucho reemplazable', 210000, 'images/pod-recargable.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
-
-            <!-- 🔴 PRODUCTO 3: TERMO STANLEY 1.4L -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/termo1.4l.jpg" alt="Termo Stanley 1.4L">
-                </div>
-                <h4>Termo Stanley 1.4L</h4>
-                <p>Mantiene frío 48hrs y calor 40hrs</p>
-                <div class="price">420.000gs</div>
-                <button class="buy-button" onclick="addToCart(3, 'Termo Stanley 1.4L', 'Mantiene frío 48hrs y calor 40hrs', 420000, 'images/termo1.4l.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
-
-            <!-- 🔴 PRODUCTO 4: TERMO STANLEY 750ML -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/termito750ml.jpg" alt="Termo Stanley 750ml">
-                </div>
-                <h4>Termo Stanley 750ml</h4>
-                <p>Tamaño ideal para el día a día</p>
-                <div class="price">320.000gs</div>
-                <button class="buy-button" onclick="addToCart(4, 'Termo Stanley 750ml', 'Tamaño ideal para el día a día', 320000, 'images/termito750ml.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
-
-            <!-- 🔴 PRODUCTO 5: TERMITO STANLEY 473ML -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/termito473ml.jpg" alt="Termito Stanley 473ml">
-                </div>
-                <h4>Termito Stanley 473ml</h4>
-                <p>Compacto y portátil, perfecto para llevar</p>
-                <div class="price">280.000gs</div>
-                <button class="buy-button" onclick="addToCart(5, 'Termito Stanley 473ml', 'Compacto y portátil, perfecto para llevar', 280000, 'images/termito473ml.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
-
-            <!-- 🔴 PRODUCTO 6: TERMO STANLEY ADVENTURE -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="images/termoAdventure.jpg" alt="Termo Stanley Adventure">
-                </div>
-                <h4>Termo Stanley Adventure</h4>
-                <p>Ideal para aventuras al aire libre</p>
-                <div class="price">380.000gs</div>
-                <button class="buy-button" onclick="addToCart(6, 'Termo Stanley Adventure', 'Ideal para aventuras al aire libre', 380000, 'images/termoAdventure.jpg')">
-                    Agregar al Carrito
-                </button>
-            </div>
+        <div class="product-grid" id="productGrid">
+            <!-- Los productos se cargarán aquí dinámicamente -->
         </div>
     </section>
 
@@ -640,7 +568,7 @@
             <div>📱 +595 (994) 589-575</div>
             <div>📍 Asunción, Paraguay</div>
         </div>
-        <p>&copy; 2024 Rainloud. Todos los derechos reservados.</p>
+        <p>&copy; 2024 Rainloud Marketplace. Todos los derechos reservados.</p>
     </footer>
 
     <!-- ========== JAVASCRIPT ========== -->
@@ -676,11 +604,58 @@
             updateCartCount();
         }
 
-        // Agregar producto al carrito
+        // Obtener productos de vendedores
+        function getProducts() {
+            const products = localStorage.getItem('rainloudProducts');
+            return products ? JSON.parse(products) : [];
+        }
+
+        // Renderizar productos en el grid
+        function renderProducts() {
+            const products = getProducts();
+            const grid = document.getElementById('productGrid');
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                        <p style="font-size: 1.2rem; color: #666; margin-bottom: 1rem;">
+                            No hay productos publicados aún
+                        </p>
+                        <a href="vender.html" style="display: inline-block; padding: 0.8rem 2rem; background: #667eea; color: white; text-decoration: none; border-radius: 25px; font-weight: bold;">
+                            ¡Sé el primero en vender!
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product.images[0]}" alt="${product.name}">
+                    </div>
+                    <h4>${product.name}</h4>
+                    <p>${product.description.substring(0, 80)}...</p>
+                    <div class="price">${product.price.toLocaleString('es-PY')}gs</div>
+                    <button class="buy-button" onclick="contactSeller('${product.whatsapp}', '${product.name}', ${product.price})">
+                        💬 Contactar Vendedor
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Contactar vendedor por WhatsApp
+        function contactSeller(whatsapp, productName, price) {
+            const message = `Hola! Me interesa tu producto: *${productName}* (${price.toLocaleString('es-PY')}gs). ¿Está disponible?`;
+            const cleanPhone = whatsapp.replace(/\D/g, '');
+            const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Agregar producto al carrito (para productos futuros de la tienda oficial)
         function addToCart(id, name, description, price, image) {
             let cart = getCart();
             
-            // Verificar si el producto ya existe en el carrito
             const existingItem = cart.find(item => item.id === id);
             
             if (existingItem) {
@@ -704,7 +679,14 @@
         function updateCartCount() {
             const cart = getCart();
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = totalItems;
+            const cartCountElement = document.getElementById('cartCount');
+            
+            if (totalItems > 0) {
+                cartCountElement.textContent = totalItems;
+                cartCountElement.classList.remove('hidden');
+            } else {
+                cartCountElement.classList.add('hidden');
+            }
         }
 
         // Mostrar notificación
@@ -733,6 +715,9 @@
 
         // Actualizar contador al cargar la página
         updateCartCount();
+        
+        // Cargar productos al cargar la página
+        renderProducts();
 
         // Smooth scroll mejorado
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
