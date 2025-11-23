@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rainloud - Pods y Termos</title>
+    <title>Rainloud - Marketplace</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -287,10 +292,26 @@
             text-align: center;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            position: relative;
         }
 
         .product-card:hover {
             transform: scale(1.05);
+        }
+
+        /* ========== BADGE DE DESCUENTO ========== */
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
         }
 
         /* ========== IMÁGENES DE PRODUCTOS ========== */
@@ -329,6 +350,65 @@
             color: #667eea;
             font-weight: bold;
             margin: 0.8rem 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ========== INFO DEL VENDEDOR ========== */
+        .seller-info {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            text-align: left;
+        }
+
+        .seller-photo {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #667eea;
+        }
+
+        .seller-photo-placeholder {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .seller-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .seller-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .seller-location {
+            font-size: 0.75rem;
+            color: #666;
         }
 
         .buy-button {
@@ -556,8 +636,21 @@
     <!-- ========== PRODUCTOS CON IMÁGENES ========== -->
     <section class="products" id="productos">
         <h2 class="section-title">Productos Destacados</h2>
+        
+        <!-- Filtro de productos con descuento -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button id="filterAll" class="buy-button" onclick="filterProducts('all')" style="margin: 0 0.5rem; padding: 0.6rem 1.5rem; font-size: 0.9rem;">
+                Todos
+            </button>
+            <button id="filterDiscount" class="buy-button" onclick="filterProducts('discount')" style="margin: 0 0.5rem; padding: 0.6rem 1.5rem; font-size: 0.9rem; background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);">
+                🏷️ Con Descuento
+            </button>
+        </div>
+        
         <div class="product-grid" id="productGrid">
-            <!-- Los productos se cargarán aquí dinámicamente -->
+            <p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">
+                Cargando productos...
+            </p>
         </div>
     </section>
 
