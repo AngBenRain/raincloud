@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vender en Rainloud - Panel de Vendedores</title>
+    <title>Vender en Rainloud</title>
     
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Firebase SDK v9 -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     
     <style>
         * {
@@ -17,9 +18,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
             background: #f8f9fa;
+            color: #333;
         }
 
         header {
@@ -52,36 +52,19 @@
 
         .logo img {
             height: 40px;
-            width: auto;
             border-radius: 10px;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            border-radius: 3px;
         }
 
         .nav-links {
             display: flex;
             gap: 1.5rem;
             list-style: none;
-            align-items: center;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
         }
 
         .container {
@@ -101,21 +84,24 @@
             margin-bottom: 0.5rem;
         }
 
-        /* ========== CONFIG ALERT ========== */
-        .config-alert {
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .status-badge.connected {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-badge.error {
             background: #ff4444;
             color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            display: none;
         }
 
-        .config-alert.show {
-            display: block;
-        }
-
-        /* ========== PERFIL DEL VENDEDOR ========== */
         .seller-profile {
             background: white;
             border-radius: 15px;
@@ -127,16 +113,12 @@
         .seller-profile h2 {
             color: #667eea;
             margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .profile-content {
             display: grid;
             grid-template-columns: 120px 1fr;
             gap: 1.5rem;
-            align-items: start;
         }
 
         .profile-photo-container {
@@ -149,7 +131,6 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #667eea;
-            cursor: pointer;
         }
 
         .profile-photo-placeholder {
@@ -176,12 +157,6 @@
             height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .profile-info {
-            display: grid;
-            gap: 1rem;
         }
 
         .form-container {
@@ -209,7 +184,6 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #333;
         }
 
         .form-group input,
@@ -246,7 +220,6 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1rem;
         }
 
         .discount-fields {
@@ -272,7 +245,7 @@
             background: #f0f4ff;
         }
 
-        .image-upload input[type="file"] {
+        .image-upload input {
             display: none;
         }
 
@@ -321,12 +294,10 @@
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 1rem;
         }
 
         .submit-button:disabled {
             opacity: 0.6;
-            cursor: not-allowed;
         }
 
         .my-products {
@@ -335,7 +306,6 @@
 
         .my-products h2 {
             font-size: 1.8rem;
-            color: #333;
             margin-bottom: 1.5rem;
         }
 
@@ -390,7 +360,6 @@
             text-decoration: line-through;
             color: #999;
             font-size: 0.9rem;
-            margin-right: 0.5rem;
         }
 
         .product-actions {
@@ -429,7 +398,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             z-index: 2000;
-            animation: slideIn 0.5s ease forwards;
+            animation: slideIn 0.5s;
         }
 
         .notification.error {
@@ -437,7 +406,7 @@
         }
 
         .notification.hide {
-            animation: slideOut 0.5s ease forwards;
+            animation: slideOut 0.5s;
         }
 
         @keyframes slideIn {
@@ -451,19 +420,6 @@
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                right: -100%;
-                width: 70%;
-                height: calc(100vh - 70px);
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                flex-direction: column;
-                padding: 2rem 0;
-                transition: right 0.3s ease;
-            }
-            .nav-links.active { right: 0; }
             .profile-content {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -481,17 +437,10 @@
     <header>
         <nav>
             <div class="logo">
-                <img src="images/logo.jpg" alt="Rainloud Logo">
+                <img src="images/logo.jpg" alt="Rainloud">
                 RAINLOUD
             </div>
-            
-            <div class="menu-toggle" id="menuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links">
                 <li><a href="menu.html">Inicio</a></li>
                 <li><a href="menu.html#productos">Comprar</a></li>
                 <li><a href="vender.html">Vender</a></li>
@@ -501,32 +450,25 @@
     </header>
 
     <div class="container">
-        <!-- Alerta de configuración -->
-        <div class="config-alert" id="configAlert">
-            ⚠️ <strong>Supabase no configurado.</strong> Por favor configura tus credenciales en el código.
-            Los productos se guardarán localmente.
-        </div>
-
         <div class="page-header">
             <h1>🏪 Vende tus Productos</h1>
-            <p>Publica tus artículos y comienza a vender en el marketplace</p>
+            <p>Publica tus artículos en el marketplace</p>
+            <div id="statusBadge" class="status-badge">🔄 Conectando...</div>
         </div>
 
-        <!-- PERFIL DEL VENDEDOR -->
+        <!-- PERFIL -->
         <div class="seller-profile">
             <h2>👤 Mi Perfil de Vendedor</h2>
             <div class="profile-content">
                 <div class="profile-photo-container">
-                    <div id="profilePhotoPreview" class="profile-photo-placeholder">
-                        📷
-                    </div>
+                    <div id="profilePhotoPreview" class="profile-photo-placeholder">📷</div>
                     <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;">
                     <button class="change-photo-btn" onclick="document.getElementById('profilePhotoInput').click()">📷</button>
                 </div>
-                <div class="profile-info">
+                <div>
                     <div class="form-group">
-                        <label for="sellerName">Nombre del Vendedor *</label>
-                        <input type="text" id="sellerName" placeholder="Tu nombre o nombre de tu negocio">
+                        <label for="sellerName">Nombre *</label>
+                        <input type="text" id="sellerName" placeholder="Tu nombre">
                     </div>
                     <div class="form-group">
                         <label for="sellerLocation">Ubicación *</label>
@@ -536,78 +478,76 @@
                         <label for="sellerWhatsapp">WhatsApp *</label>
                         <input type="tel" id="sellerWhatsapp" placeholder="+595 994 589 575">
                     </div>
-                    <button class="btn-edit" onclick="saveSellerProfile()" style="width: fit-content; padding: 0.7rem 2rem;">
+                    <button class="btn-edit" onclick="saveSellerProfile()" style="padding: 0.7rem 2rem;">
                         💾 Guardar Perfil
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- FORMULARIO DE PRODUCTO -->
+        <!-- FORMULARIO -->
         <div class="form-container">
             <form id="productForm">
                 <div class="form-section">
                     <h2>📦 Información del Producto</h2>
                     
                     <div class="form-group">
-                        <label for="productName">Nombre del Producto *</label>
-                        <input type="text" id="productName" required placeholder="Ej: Termo Stanley 1.4L">
+                        <label>Nombre *</label>
+                        <input type="text" id="productName" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="category">Categoría *</label>
+                        <label>Categoría *</label>
                         <select id="category" required>
-                            <option value="">Selecciona una categoría</option>
+                            <option value="">Selecciona</option>
                             <option value="pods">Pods y Vapeadores</option>
                             <option value="termos">Termos Stanley</option>
                             <option value="electronica">Electrónica</option>
-                            <option value="ropa">Ropa y Accesorios</option>
-                            <option value="hogar">Hogar y Decoración</option>
+                            <option value="ropa">Ropa</option>
+                            <option value="hogar">Hogar</option>
                             <option value="deportes">Deportes</option>
                             <option value="otros">Otros</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label for="description">Descripción *</label>
-                        <textarea id="description" required placeholder="Describe tu producto, características, condición, etc."></textarea>
+                        <label>Descripción *</label>
+                        <textarea id="description" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="price">Precio (Gs) *</label>
-                        <input type="number" id="price" required placeholder="0" min="0" step="1000">
+                        <label>Precio (Gs) *</label>
+                        <input type="number" id="price" required min="0" step="1000">
                     </div>
 
-                    <!-- DESCUENTO -->
                     <div class="form-group">
                         <div class="discount-toggle">
                             <input type="checkbox" id="hasDiscount" onchange="toggleDiscount()">
                             <label for="hasDiscount" style="margin: 0; font-weight: normal;">
-                                🏷️ Este producto tiene descuento
+                                🏷️ Tiene descuento
                             </label>
                         </div>
                         <div id="discountFields" class="discount-fields">
                             <div>
-                                <label for="originalPrice">Precio Original (Gs)</label>
-                                <input type="number" id="originalPrice" placeholder="0" min="0" step="1000">
+                                <label>Precio Original</label>
+                                <input type="number" id="originalPrice" min="0" step="1000">
                             </div>
                             <div>
-                                <label for="discountPercent">% de Descuento</label>
-                                <input type="number" id="discountPercent" placeholder="0" min="0" max="99" readonly>
+                                <label>% Descuento</label>
+                                <input type="number" id="discountPercent" readonly>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h2>📸 Imágenes del Producto</h2>
-                    
+                    <h2>📸 Imágenes</h2>
                     <div class="form-group">
                         <label class="image-upload" for="productImages">
                             <div>
                                 <p style="font-size: 2rem;">📷</p>
-                                <p><strong>Haz clic para subir imágenes</strong></p>
-                                <small>Máximo 5 imágenes</small>
+                                <p><strong>Subir imágenes</strong></p>
+                                <small>Máximo 5</small>
                             </div>
                             <input type="file" id="productImages" accept="image/*" multiple>
                         </label>
@@ -615,98 +555,84 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-button" id="submitBtn">
-                    📤 Publicar Producto
-                </button>
+                <button type="submit" class="submit-button">📤 Publicar Producto</button>
             </form>
         </div>
 
         <!-- MIS PRODUCTOS -->
         <div class="my-products">
-            <h2>Mis Productos Publicados</h2>
+            <h2>Mis Productos</h2>
             <div id="myProductsGrid" class="products-grid">
-                <p style="text-align: center; color: #666;">Cargando productos...</p>
+                <p style="text-align: center; color: #666;">Cargando...</p>
             </div>
         </div>
     </div>
 
     <script>
-        // ========== CONFIGURACIÓN SUPABASE ==========
-        // ✅ Credenciales configuradas
-        const SUPABASE_URL = 'https://epvrvfqjnbfsytkqqlki.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwdnJ2ZnFqbmJmc3l0a3FxbGtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0MTU0MzgsImV4cCI6MjA0Nzk5MTQzOH0.sb_publishable_6Ckv64pwVG0R65Yh-lkQ8g_DtdpRpx4';
+        // ========== FIREBASE CONFIG ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyCli7O5_4S9XmkAIkXe0kJ2OUT4oEOdXZY",
+            authDomain: "rainloud-41b6b.firebaseapp.com",
+            databaseURL: "https://rainloud-41b6b-default-rtdb.firebaseio.com",
+            projectId: "rainloud-41b6b",
+            storageBucket: "rainloud-41b6b.firebasestorage.app",
+            messagingSenderId: "68176910642",
+            appId: "1:68176910642:web:2a84043fc965acee609f2b"
+        };
 
-        // Inicializar Supabase
-        let supabase;
-        let isSupabaseConfigured = false;
+        let db;
+        let isConnected = false;
 
         try {
-            const { createClient } = supabasejs;
-            supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-            isSupabaseConfigured = true;
-            console.log('✅ Supabase conectado correctamente');
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+            isConnected = true;
+            document.getElementById('statusBadge').textContent = '✅ Conectado';
+            document.getElementById('statusBadge').className = 'status-badge connected';
+            console.log('✅ Firebase conectado');
         } catch (error) {
-            console.error('Error al inicializar Supabase:', error);
-            document.getElementById('configAlert').classList.add('show');
+            console.error('Error Firebase:', error);
+            document.getElementById('statusBadge').textContent = '❌ Sin conexión';
+            document.getElementById('statusBadge').className = 'status-badge error';
         }
 
-        // ========== MENÚ HAMBURGUESA ==========
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-        menuToggle?.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // ========== VARIABLES GLOBALES ==========
         let selectedImages = [];
-        let editingProductId = null;
         let sellerId = localStorage.getItem('sellerId') || 'seller_' + Date.now();
         localStorage.setItem('sellerId', sellerId);
 
-        // ========== PERFIL DEL VENDEDOR ==========
+        // ========== PERFIL ==========
         document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    const preview = document.getElementById('profilePhotoPreview');
-                    preview.innerHTML = `<img src="${event.target.result}" class="profile-photo">`;
+                reader.onload = (event) => {
+                    document.getElementById('profilePhotoPreview').innerHTML = 
+                        `<img src="${event.target.result}" class="profile-photo">`;
                     localStorage.setItem('sellerPhoto', event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
         });
 
-        async function saveSellerProfile() {
+        function saveSellerProfile() {
             const name = document.getElementById('sellerName').value;
             const location = document.getElementById('sellerLocation').value;
             const whatsapp = document.getElementById('sellerWhatsapp').value;
             const photo = localStorage.getItem('sellerPhoto') || '';
 
             if (!name || !location || !whatsapp) {
-                showNotification('Por favor completa todos los campos del perfil', 'error');
+                showNotification('Completa todos los campos', 'error');
                 return;
             }
 
-            const profile = { id: sellerId, name, location, whatsapp, photo };
+            const profile = { name, location, whatsapp, photo };
             localStorage.setItem('sellerProfile', JSON.stringify(profile));
             
-            // Guardar en Supabase
-            if (isSupabaseConfigured) {
-                const { error } = await supabase
-                    .from('sellers')
-                    .upsert(profile);
-                
-                if (error) {
-                    console.error('Error guardando en Supabase:', error);
-                    showNotification('Perfil guardado localmente', 'error');
-                } else {
-                    showNotification('¡Perfil guardado en Supabase!');
-                }
-            } else {
-                showNotification('¡Perfil guardado localmente!');
+            if (isConnected) {
+                db.ref('sellers/' + sellerId).set(profile);
             }
+            
+            showNotification('¡Perfil guardado!');
         }
 
         function loadSellerProfile() {
@@ -727,13 +653,7 @@
         // ========== DESCUENTOS ==========
         function toggleDiscount() {
             const fields = document.getElementById('discountFields');
-            const hasDiscount = document.getElementById('hasDiscount').checked;
-            fields.classList.toggle('active', hasDiscount);
-            
-            if (!hasDiscount) {
-                document.getElementById('originalPrice').value = '';
-                document.getElementById('discountPercent').value = '';
-            }
+            fields.classList.toggle('active', document.getElementById('hasDiscount').checked);
         }
 
         document.getElementById('originalPrice').addEventListener('input', function() {
@@ -780,12 +700,12 @@
         }
 
         // ========== FORMULARIO ==========
-        document.getElementById('productForm').addEventListener('submit', async function(e) {
+        document.getElementById('productForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const profile = localStorage.getItem('sellerProfile');
             if (!profile) {
-                showNotification('Por favor completa tu perfil primero', 'error');
+                showNotification('Completa tu perfil primero', 'error');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
@@ -799,130 +719,94 @@
             const hasDiscount = document.getElementById('hasDiscount').checked;
             
             const product = {
+                id: Date.now(),
                 name: document.getElementById('productName').value,
                 category: document.getElementById('category').value,
                 description: document.getElementById('description').value,
                 price: parseInt(document.getElementById('price').value),
-                has_discount: hasDiscount,
-                original_price: hasDiscount ? parseInt(document.getElementById('originalPrice').value) : null,
-                discount_percent: hasDiscount ? parseInt(document.getElementById('discountPercent').value) : null,
+                hasDiscount: hasDiscount,
+                originalPrice: hasDiscount ? parseInt(document.getElementById('originalPrice').value) : null,
+                discountPercent: hasDiscount ? parseInt(document.getElementById('discountPercent').value) : null,
                 images: selectedImages,
-                seller_id: sellerId,
-                seller_name: sellerData.name,
-                seller_location: sellerData.location,
-                seller_whatsapp: sellerData.whatsapp,
-                seller_photo: sellerData.photo || null
+                seller: sellerData,
+                sellerId: sellerId,
+                date: new Date().toISOString()
             };
 
-            // Guardar en Supabase
-            if (isSupabaseConfigured) {
-                try {
-                    if (editingProductId) {
-                        const { error } = await supabase
-                            .from('products')
-                            .update(product)
-                            .eq('id', editingProductId);
-                        
-                        if (error) throw error;
-                        showNotification('¡Producto actualizado en Supabase!');
-                    } else {
-                        const { error } = await supabase
-                            .from('products')
-                            .insert([product]);
-                        
-                        if (error) throw error;
-                        showNotification('¡Producto publicado en Supabase!');
-                    }
-                } catch (error) {
-                    console.error('Error Supabase:', error);
-                    showNotification('Error. Guardando localmente...', 'error');
-                    saveToLocalStorage(product);
-                }
+            if (isConnected) {
+                db.ref('products/' + product.id).set(product)
+                    .then(() => {
+                        showNotification('¡Publicado en Firebase!');
+                        resetForm();
+                        loadMyProducts();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        saveToLocalStorage(product);
+                    });
             } else {
                 saveToLocalStorage(product);
             }
-
-            this.reset();
-            selectedImages = [];
-            renderImagePreview();
-            editingProductId = null;
-            document.getElementById('submitBtn').textContent = '📤 Publicar Producto';
-            loadMyProducts();
         });
 
         function saveToLocalStorage(product) {
-            product.id = editingProductId || Date.now();
             let products = JSON.parse(localStorage.getItem('rainloudProducts') || '[]');
-            const index = products.findIndex(p => p.id === product.id);
-            if (index !== -1) {
-                products[index] = product;
-            } else {
-                products.push(product);
-            }
+            products.push(product);
             localStorage.setItem('rainloudProducts', JSON.stringify(products));
-            showNotification('¡Producto guardado localmente!');
+            showNotification('Guardado localmente');
+            resetForm();
+            loadMyProducts();
+        }
+
+        function resetForm() {
+            document.getElementById('productForm').reset();
+            selectedImages = [];
+            renderImagePreview();
         }
 
         // ========== MIS PRODUCTOS ==========
-        async function loadMyProducts() {
-            let products = [];
-
-            if (isSupabaseConfigured) {
-                const { data, error } = await supabase
-                    .from('products')
-                    .select('*')
-                    .eq('seller_id', sellerId)
-                    .order('created_at', { ascending: false });
-                
-                if (error) {
-                    console.error('Error cargando productos:', error);
-                    products = JSON.parse(localStorage.getItem('rainloudProducts') || '[]')
-                        .filter(p => p.seller_id === sellerId);
-                } else {
-                    products = data;
-                }
+        function loadMyProducts() {
+            if (isConnected) {
+                db.ref('products').orderByChild('sellerId').equalTo(sellerId).once('value', (snapshot) => {
+                    const products = [];
+                    snapshot.forEach(child => products.push(child.val()));
+                    renderMyProducts(products);
+                });
             } else {
-                products = JSON.parse(localStorage.getItem('rainloudProducts') || '[]')
-                    .filter(p => p.seller_id === sellerId);
+                const products = JSON.parse(localStorage.getItem('rainloudProducts') || '[]')
+                    .filter(p => p.sellerId === sellerId);
+                renderMyProducts(products);
             }
-
-            renderMyProducts(products);
         }
 
         function renderMyProducts(products) {
             const grid = document.getElementById('myProductsGrid');
             
             if (products.length === 0) {
-                grid.innerHTML = '<p style="text-align: center; color: #666;">No has publicado productos aún</p>';
+                grid.innerHTML = '<p style="text-align: center; color: #666;">Sin productos</p>';
                 return;
             }
 
             grid.innerHTML = products.map(p => `
                 <div class="product-item">
-                    ${p.has_discount ? `<div class="discount-badge">-${p.discount_percent}%</div>` : ''}
+                    ${p.hasDiscount ? `<div class="discount-badge">-${p.discountPercent}%</div>` : ''}
                     <img src="${p.images[0]}">
                     <h3>${p.name}</h3>
                     <p style="font-size: 0.9rem; color: #666;">${p.description.substring(0, 60)}...</p>
-                    ${p.has_discount ? `<span class="old-price">${p.original_price.toLocaleString('es-PY')}gs</span>` : ''}
+                    ${p.hasDiscount ? `<span class="old-price">${p.originalPrice.toLocaleString('es-PY')}gs</span>` : ''}
                     <div class="price">${p.price.toLocaleString('es-PY')}gs</div>
                     <div class="product-actions">
-                        <button class="btn-edit" onclick="editProduct(${p.id})">Editar</button>
                         <button class="btn-delete" onclick="deleteProduct(${p.id})">Eliminar</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        async function deleteProduct(id) {
-            if (!confirm('¿Eliminar este producto?')) return;
+        function deleteProduct(id) {
+            if (!confirm('¿Eliminar?')) return;
             
-            if (isSupabaseConfigured) {
-                const { error } = await supabase
-                    .from('products')
-                    .delete()
-                    .eq('id', id);
-                
-                if (error) console.error('Error eliminando:', error);
+            if (isConnected) {
+                db.ref('products/' + id).remove();
             }
             
             let products = JSON.parse(localStorage.getItem('rainloudProducts') || '[]');
@@ -930,11 +814,7 @@
             localStorage.setItem('rainloudProducts', JSON.stringify(products));
             
             loadMyProducts();
-            showNotification('Producto eliminado');
-        }
-
-        function editProduct(id) {
-            showNotification('Función de edición próximamente');
+            showNotification('Eliminado');
         }
 
         function showNotification(message, type = 'success') {
@@ -946,7 +826,7 @@
             setTimeout(() => notif.remove(), 3500);
         }
 
-        // ========== INICIALIZACIÓN ==========
+        // ========== INIT ==========
         loadSellerProfile();
         loadMyProducts();
     </script>
