@@ -9,7 +9,7 @@
 // 5. Pega los valores abajo:
 
 const SUPABASE_URL = 'https://epvrvfqjnbfsytkqqlki.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_6Ckv64pwYGOR65Yh-lkQ8g_DtdpRpx4';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwdnJ2ZnFqbmJmc3l0a3FxbGtpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4NDQ0NTAsImV4cCI6MjA3OTQyMDQ1MH0.FdYYtOYeFFy7L_jtciGFdPpDJQGI4aY4WJwbC_LJK7c';
 
 // Ejemplo de cómo se vería:
 // const SUPABASE_URL = 'https://xyzabcdefgh.supabase.co';
