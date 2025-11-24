@@ -2,13 +2,13 @@
 // Reemplaza estos valores con los de tu proyecto Firebase
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCli7O5_4S9XmkAIkXe0kJ2OUT4oEOdXZY",
-  authDomain: "rainloud-41b6b.firebaseapp.com",
-  databaseURL: "https://rainloud-41b6b-default-rtdb.firebaseio.com",
-  projectId: "rainloud-41b6b",
-  storageBucket: "rainloud-41b6b.firebasestorage.app",
-  messagingSenderId: "68176910642",
-  appId: "1:68176910642:web:2a84043fc965acee609f2b"
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROJECT_ID.firebaseapp.com",
+  databaseURL: "https://TU_PROJECT_ID-default-rtdb.firebaseio.com",
+  projectId: "TU_PROJECT_ID",
+  storageBucket: "TU_PROJECT_ID.appspot.com",
+  messagingSenderId: "TU_MESSAGING_SENDER_ID",
+  appId: "TU_APP_ID"
 };
 
 // PASOS PARA OBTENER TU CONFIGURACIÓN:

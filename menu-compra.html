@@ -650,19 +650,57 @@
             const envio = 50000;
             const total = subtotal + envio;
             
-            const message = `🛒 *PEDIDO RAINLOUD*
+            // Agrupar productos por vendedor
+            const byVendor = {};
+            cart.forEach(item => {
+                const vendorPhone = item.seller.whatsapp;
+                if (!byVendor[vendorPhone]) {
+                    byVendor[vendorPhone] = {
+                        name: item.seller.name,
+                        products: []
+                    };
+                }
+                byVendor[vendorPhone].products.push(item);
+            });
 
-${cart.map(item => `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`).join('\n')}
+            // Abrir WhatsApp para cada vendedor
+            Object.keys(byVendor).forEach((phone, index) => {
+                const vendor = byVendor[phone];
+                const vendorTotal = vendor.products.reduce((sum, item) => 
+                    sum + (item.price * item.quantity), 0);
+
+                const message = `🛒 *PEDIDO RAINLOUD*
+
+Hola *${vendor.name}*! Quiero realizar el siguiente pedido:
+
+${vendor.products.map(item => 
+    `• ${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
+).join('\n')}
 
 ━━━━━━━━━━━━━━━
-Subtotal: ${formatPrice(subtotal)}
-Envío: ${formatPrice(envio)}
-*Total: ${formatPrice(total)}*
+Total: ${formatPrice(vendorTotal)}
 
-¡Gracias por tu compra!`;
-            
-            const whatsappUrl = `https://wa.link/r9olgy?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
+¡Gracias!`;
+                
+                const cleanPhone = phone.replace(/\D/g, '');
+                const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+                
+                // Abrir con delay para no bloquear popups
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, index * 1000);
+            });
+
+            showNotification(`Abriendo WhatsApp de ${Object.keys(byVendor).length} vendedor(es)...`);
+        }
+
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('hide'), 3000);
+            setTimeout(() => notif.remove(), 3500);
         }
 
         // Renderizar carrito al cargar la página
